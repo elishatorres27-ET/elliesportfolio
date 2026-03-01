@@ -1,0 +1,7 @@
+$base-purple: #8b5cf6;
+
+@mixin centered {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
