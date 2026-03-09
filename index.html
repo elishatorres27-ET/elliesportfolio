@@ -1,356 +1,374 @@
 <!doctype html>
 <html lang="en">
   <head>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600&display=swap" rel="stylesheet">
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>room-portfolio</title>
+    <title>Elisha's Room Portfolio</title>
   </head>
+
   <body>
-    <div id="app"></div>
+    <!-- THREE canvas (ONLY ONE) -->
+    <canvas id="experience-canvas" class="experience-canvas"></canvas>
 
-    <div class="work modal">
-      <div class="modal-wrapper">
-        <h1 class="modal-title">~ My Work ~</h1>
+    <!-- Loading Screen -->
+    <div id="loadingScreen" class="loading-screen">
+      <div class="loading-card">
+        <!-- Wave text -->
+        <div id="loadingTitle" class="loading-title wave" aria-label="Loading">
+          <span style="--i:0">L</span><span style="--i:1">o</span><span style="--i:2">a</span><span style="--i:3">d</span><span style="--i:4">i</span><span style="--i:5">n</span><span style="--i:6">g</span><span style="--i:7">.</span><span style="--i:8">.</span><span style="--i:9">.</span>
+        </div>
 
-        <div class="modal-content">
-          <div class="modal-content-wrapper">
-            <div class="work-project">
-              <div class="work-project-wrapper">
-                <div class="work-image-wrapper">
-                  <img
-                    class="work-base-image"
-                    src="/images/community.webp"
-                    alt=""
-                    srcset=""
-                  />
-                </div>
-                <div class="paragraph-section">
-                  <h2 class="modal-paragraph-header">Community Leader</h2>
-                  <p class="modal-paragraph-text">
-                    Organized several events and outreach with local communities
-                    and business to help international students familiarize with
-                    Korean culture!
-                  </p>
-                  <p class="modal-paragraph-text sm-margin-top sm-font">
-                    Skills: Leadership, Communication, Community Building, Teamwork
+        <!-- ENTER button (hidden until load completes) -->
+        <button id="enterBtn" class="enter-btn" type="button" style="display:none;" data-i18n="enterBtn">
+          ENTER
+        </button>
+
+        <!-- Instructions (always visible) -->
+        <div class="loading-help" data-i18n="loadingHelp">
+          Left Click + Drag to Rotate · Mouse Wheel to Zoom · Right Click + Drag to Pan
+        </div>
+      </div>
+    </div>
+
+    <!-- Top UI buttons (overlay) -->
+    <div class="ui-top">
+      <button id="musicToggle" class="icon-btn" type="button" aria-label="Toggle music">
+        <img id="musicIcon" src="/icons/music-svgrepo-com.svg" alt="music" />
+      </button>
+
+      <button id="langToggle" class="icon-btn" type="button" aria-label="Toggle language">
+        <img id="langIcon" src="/icons/letter-chinese-a-svgrepo-com.svg" alt="translate" />
+      </button>
+    </div>
+
+    <!-- Modal Overlay -->
+    <div class="modal-container">
+      <!-- WORK MODAL -->
+      <div class="modal work">
+        <button class="modal-exit-button" type="button" aria-label="Close modal">
+          <img src="/icons/xmark-svgrepo-com.svg" alt="close" />
+        </button>
+
+        <div class="modal-wrapper">
+          <h1 class="modal-title" data-i18n="mywork">~ My Work ~</h1>
+
+          <div class="modal-content">
+            <div class="modal-content-wrapper">
+              <div class="work-project">
+                <div class="work-project-wrapper">
+                  <div class="work-image-wrapper">
+                    <img
+                      class="work-base-image"
+                      src="/images/webresearch.jpg"
+                      alt=""
+                      srcset=""
+                    />
                   </div>
-                  </p>
+                  <div class="paragraph-section">
+                    <h2 class="modal-paragraph-header" data-i18n="researchHeader">~ Research Project ~</h2>
+                    <p class="project-title" data-i18n="project1Title">
+                    Automated Surface Morphology Measurement System for Wafer Stripping and Regeneration
+                    </p>
+                    <p class="modal-paragraph-text" data-i18n="project1Desc">
+                      This project focused on developing an automated system for measuring wafer surface roughness during semiconductor wafer regeneration. The system integrates a Keyence CL-V050G confocal displacement sensor with a Galil DMC-B140-M motion controller to perform high-precision, non-contact surface measurements. A custom Python-based GUI (PyQt5) was developed to control motion, collect data, and visualize results in both 2D and 3D formats. The automated scanning platform improves measurement accuracy, repeatability, and efficiency while reducing human error and contamination risks, providing a practical solution for real-time wafer surface inspection in semiconductor manufacturing.
+                    </p>
+                    <p class="project-link">
+                      <a href="https://drive.google.com/file/d/1hjsTD5JQxvcrEV9hVI6pG49DT1bw9xYO/view?usp=drivesdk" target="_blank" data-i18n="viewPaper">
+                        View Full Paper
+                      </a>
+                    </p>
+                    <p class="project-title" data-i18n="project2Title">
+                    Smart Tool Wear Prediction Algorithm for CNC Milling Processes
+                    </p>
+                    <p class="modal-paragraph-text" data-i18n="project2Desc">
+                      This project developed a machine-learning-based method for monitoring cutting tool wear in CNC milling operations using spindle motor current signals. Current data collected during machining was analyzed using feature extraction techniques including FFT, statistical analysis, and Principal Component Analysis (PCA) to identify indicators of tool degradation. A logistic regression classifier achieved approximately 97% accuracy in predicting tool conditions and determining optimal tool change points. The proposed approach enables real-time tool condition monitoring with minimal sensor requirements, supporting predictive maintenance and improved efficiency in smart manufacturing environments.
+                    </p>
+                    <p class="project-link">
+                      <a href="https://drive.google.com/file/d/182AIj19TJ7ErdR16N7LH4QD7QCXAKNKy/view?usp=drivesdk" target="_blank" data-i18n="viewPaper">
+                        View Full Paper
+                      </a>
+                    </p>
+                </div>
+              </div>  
               </div>
-            </div>
-            <div class="work-project">
-              <div class="work-project-wrapper">
-                <div class="work-image-wrapper">
-                  <img
-                    class="work-base-image"
-                    src="/images/computer.webp"
-                    alt=""
-                    srcset=""
-                  />
-                </div>
-                <div class="paragraph-section">
-                  <h2 class="modal-paragraph-header">MeloMochi</h2>
-                  <p class="modal-paragraph-text">
-                    During my piano teaching journey, I created MeloMochi, an AI-powered compositional tool that helps students learn music theory through hands-on exploration. I designed the system to generate piano exercises and short pieces that adapt to each student's skill level, combining my experience as a pianist with my machine learning expertise. Using TensorFlow and pretty_midi, I trained models on classical repertoire to create exercises that feel musical while targeting specific technical challenges. The web interface I built with React allows students to interact with the generated pieces, visualize patterns, and even modify them in real-time. Working closely with my students throughout development helped me refine the system to ensure it genuinely supports their learning process, making music theory more engaging and practical.
-                  </p>
-                  <p class="modal-paragraph-text sm-margin-top sm-font">
-                    Skills: Music Generation,
-                    TensorFlow,
-                    pretty_midi,
-                    Adaptive Learning,
-                    React,
-                    Music Theory,
-                    UX Design,
-                    Generative ML,
-                    Education Tech,
-                    Web Audio API
-                  </p>
+              <div class="work-project">
+                <div class="work-project-wrapper">
+                  <div class="work-image-wrapper">
+                    <img
+                      class="work-base-image"
+                      src="/images/webenvolvement.jpg"
+                      alt=""
+                      srcset=""
+                    />
+                  </div>
+                  <div class="paragraph-section">
+                    <h2 class="modal-paragraph-header" data-i18n="academicHeader">~ Academic Envolvement ~</h2>
+                    <ul class="modal-paragraph-text academic-list">
+
+                    <li>
+                    <strong>Technology Intelligence Robot Contest (TIRC) 台灣智慧型機器人大賽 – Third Place 第三名</strong><br>
+                    國立勤益科技大學, No. 57號, Section 2, Zhongshan Rd, Taichung City, Taiwan<br>
+                    March 2026
+                    </li>
+
+                    <li>
+                    <strong>AERC Asian Robotics Sports Competition 亞洲機器人運動競技大賽 – Merit Award 佳作獎</strong><br>
+                    國立臺南大學, 700, Taiwan, Tainan City, West Central District, Wufei St, 172號<br>
+                    December 2025
+                    </li>
+
+                    <li>
+                    <strong>Energy and Engineering Creative Competition 能源暨工程創意競賽 – Merit Award 佳作獎</strong><br>
+                    國立成功大學, 704, Taiwan, 台灣省 North District, Shengli Rd, 138號<br>
+                    November 2025
+                    </li>
+
+                    <li>
+                    <strong>National Grinding Technology Competition 全國磨潤科技實務技術競賽 – Excellence Award 優等獎</strong><br>
+                    台東大學建功校區, 950, Taiwan, Taitung County, Taitung City, 大學路二段369號<br>
+                    October 2025
+                    </li>
+
+                    <li>
+                    <strong>Lubrication Analysis and Heat Transfer Teaching Assistant 機械工程系助教</strong><br>
+                    崑山科技大學, No. 195號, Kunda Rd, Yongkang District, Tainan City, 710<br>
+                    September 2024 – June 2025
+                    </li>
+
+                    <li>
+                    <strong>Special Award – Predictive Maintenance Algorithm (CNC Tool Prediction) 佳作獎</strong><br>
+                    萬潤科技股份有限公司, No. 1號, Luke 10th Rd, Luzhu District, Kaohsiung City, 821<br>
+                    October 2024
+                    </li>
+
+                    <li>
+                    <strong>ICETAT 2024 – CNC Machining Session Host 主持人</strong><br>
+                    馥麗溫泉大飯店ICETAT會議, No. 250-2號, Zhongshan Rd, Nantou County, 555<br>
+                    October 2024
+                    </li>
+
+                    <li>
+                    <strong>Assistant Engineer Intern 助理工程師 (實習)</strong><br>
+                    致茂電子 高雄分公司, No. 1號, Beineihuan E Rd, Nanzih District, Kaohsiung City, 811623<br>
+                    July – August 2024
+                    </li>
+
+                    </ul>
+                  </div>
                 </div>
               </div>
-            </div>
-            <div class="work-project">
-              <div class="work-project-wrapper">
-                <div class="work-image-wrapper">
-                  <img
-                    class="work-base-image"
-                    src="/images/piano.webp"
-                    alt=""
-                    srcset=""
-                  />
-                </div>
-                <div class="paragraph-section">
-                  <h2 class="modal-paragraph-header">
-                    PianoScope
-                  </h2>
-                  <p class="modal-paragraph-text">
-                    PianoScope is my passion project that combines my love for
-                    piano and machine learning. I co-created this AI-powered
-                    tool with fellow musicians to help us better understand our
-                    playing patterns. Using deep learning and audio processing
-                    techniques I implemented in Python and TensorFlow, the
-                    system analyzes recordings to detect nuances in timing,
-                    dynamics, and pedaling. I built the interactive
-                    visualization interface using React, allowing
-                    performers to see how these elements evolve.
-                  </p>
-                  <p class="modal-paragraph-text sm-margin-top sm-font">
-                    Skills: Audio Processing,
-                    Signal Analysis,
-                    Machine Learning,
-                    Data Visualization,
-                    TensorFlow,
-                    React,
-                    Python,
-                    DSP (Digital Signal Processing),
-                    Performance Analytics,
-                    Audio Classification
-                  </p>
+              <div class="work-project">
+                <div class="work-project-wrapper">
+                  <div class="work-image-wrapper">
+                    <img
+                      class="work-base-image"
+                      src="/images/pic5.jpg"
+                      alt=""
+                      srcset=""
+                    />
+                  </div>
+                  <div class="paragraph-section">
+                    <h2 class="modal-paragraph-header" data-i18n="certHeader">~ Certificates and Awards ~</h2>
+                    <p class="certificate-title">
+                    Bachelor’s Degree (Mechanical Engineering) 學士學位（機械工程） – Valedictorian 優秀畢業生
+                    </p>
+                    <p class="modal-paragraph-text">
+                    崑山科技大學, 台灣台南<br>
+                    Sep 2021 – Present 近代的
+                    </p>
+
+                    <p class="certificate-title">
+                    TOCFL Test of Chinese as a Foreign Language A2 Certificate
+                    </p>
+                    <p class="modal-paragraph-text">
+                    漢語作為外語的考試<br>
+                    September 2025
+                    </p>
+
+                    <p class="certificate-title">
+                    Robotics Engineer 機器人工程師 – Junior (Practical) Certificate 初級（實踐）證書
+                    </p>
+                    <p class="modal-paragraph-text">
+                    TAIROA 台灣自動化智慧與機器人協會<br>
+                    May 2024
+                    </p>
+
+                    <p class="certificate-title">
+                    Associate Degree (Mathematics and Physics) 副學士學位（數學與物理）– Golden Honour Award (3.95 GPA) 
+                    </p>
+                    <p class="modal-paragraph-text">
+                    St. John’s College Junior College, Belize City, Belize<br>
+                    Aug 2020 – June 2022
+                    </p>
+
+                    <p class="certificate-title">
+                    High School Diploma (Biology, Chemistry, Physics) 高中畢業文憑（生物、化學、物理）– Catherine McCauley Award (4.00 GPA)
+                    </p>
+                    <p class="modal-paragraph-text">
+                    St. Catherine’s Academy, Belize City, Belize<br>
+                    Aug 2016 – June 2020
+                    </p>
+                    </p>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-      <button class="modal-exit-button">
-        <svg
-          width="98"
-          height="96"
-          viewBox="0 0 98 96"
-          class="exit-button-svg"
-          fill="currentColor"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <rect
-            width="115.92"
-            height="17.889"
-            rx="8.94448"
-            transform="matrix(-0.696845 0.717222 0.717222 0.696845 83.1709 0)"
-            fill="currentColor"
-          />
-          <rect
-            width="115.92"
-            height="17.889"
-            rx="8.94448"
-            transform="matrix(0.73406 0.679084 0.679084 -0.73406 0 13.1318)"
-            fill="currentColor"
-          />
-        </svg>
-      </button>
-    </div>
-    <div class="about modal">
-      <div class="modal-wrapper">
-        <h1 class="modal-title">~ About Me ~</h1>
 
-        <div class="modal-content">
-          <div class="modal-content-wrapper">
-            <div class="paragraph-section">
-              <div class="image-wrapper">
-                <img
-                  class="base-image"
-                  src="/images/profile_pic.webp"
-                  alt=""
-                  srcset=""
-                />
+
+      <div class="about modal">
+        <button class="modal-exit-button" type="button" aria-label="Close modal">
+          <img src="/icons/xmark-svgrepo-com.svg" alt="close" />
+        </button>
+
+        <div class="modal-wrapper">
+          <h1 class="modal-title" data-i18n="about">~ About Me ~</h1>
+
+          <div class="modal-content">
+            <div class="modal-content-wrapper">
+              <div class="paragraph-section">
+                <div class="image-wrapper">
+                  <img
+                    class="base-image"
+                    src="/images/profile_pic.webp"
+                    alt=""
+                    srcset=""
+                  />
+                </div>
+                <h2 class="modal-paragraph-header" data-i18n="aboutHeader">Mechanical Engineer & Coder at Heart</h2>
+                <p class="modal-paragraph-text" data-i18n="aboutP1">
+                I am Elisha Torres (伊莉莎), a Mechanical Engineering student at Kun Shan University in Taiwan, originally from Belize City, Belize. Growing up in a challenging environment shaped my resilience, sense of responsibility, and determination to pursue education as a way to create opportunities for myself and my family. As the eldest sibling, I have always felt a strong motivation to succeed not only for my own future but also to help support and inspire those around me. Through discipline, perseverance, and a strong commitment to learning, I have consistently worked to achieve academic excellence and currently rank at the top of my class.
+                </p>
+
+                <p class="modal-paragraph-text" data-i18n="aboutP2">
+                My academic interests focus on semiconductor-related research, automation systems, and the application of machine learning in manufacturing processes. I have worked on projects involving automated wafer surface morphology measurement systems and predictive maintenance algorithms for CNC machining. In my research, I developed software for wafer surface profiling using laser sensors and motion control systems, and I applied feature extraction techniques and machine learning models to analyze machining data for tool wear prediction. I am particularly interested in how intelligent systems and automation can improve efficiency, precision, and reliability in modern manufacturing environments.  
+                </p>
+
+                <p class="modal-paragraph-text" data-i18n="aboutP3">
+                Beyond engineering, I have a deep passion for classical music and have studied piano for many years. Music has always been an important creative outlet for me and a source of discipline and focus. I enjoy blending creativity with technology, which is reflected in my interactive portfolio where visitors can explore a 3D environment and even play a working digital piano embedded directly within the website. For me, music and engineering share many similarities both require patience, structure, creativity, and a willingness to continuously improve.
+                </p>
+
+                <p class="modal-paragraph-text" data-i18n="aboutP4">
+                Outside of my academic and technical work, I enjoy activities that challenge my thinking and encourage continuous learning. I love reading and exploring books that expand my perspective and understanding of the world. I also enjoy playing chess, a hobby that strengthens my strategic thinking, patience, and analytical problem-solving skills. These interests complement my engineering mindset and help me approach problems from different perspectives.
+                </p>
+
+                <p class="modal-paragraph-text" data-i18n="aboutP5">
+                Looking ahead, I hope to pursue advanced studies in semiconductor manufacturing and build a career in Taiwan’s semiconductor industry. My long-term goal is to contribute to technological innovation while supporting my family and creating opportunities for the next generation. I believe that perseverance, curiosity, and a commitment to learning can transform even the most difficult beginnings into meaningful achievements.
+                </p>
+                <p class="project-link">
+                  <a href="https://drive.google.com/file/d/1ABJjGEv9p5XAvaG7fvtC_HQExvUBBDMF/view"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    data-i18n="autobiographyLink">
+                    Read My Full Autobiography
+                  </a>
+                </p>
               </div>
-              <h2 class="modal-paragraph-header">
-                Engineer, musician, creative, & gamer at heart 💜
-              </h2>
-              <p class="modal-paragraph-text">
-                안녕하세요, I'm 김수아 (Kim Soo-ah), but you can also call me
-                Angelina! I'm currently a second-year student at Seoul National
-                University studying computer science engineering and music. I
-                love to take my combination of skills of technical and artsy
-                skills to create beautiful things for the world that I am
-                passionate about.
-              </p>
-              <p class="modal-paragraph-text sm-margin-top">
-                In my free time you'll definitely catch me watching K-drama and
-                League of Legends. I also practice piano one or two hours a day
-                and want to start uploading content one day. May or may not also
-                catch me going for strolls around my neighbohrhood.
-              </p>
-              <h2 class="modal-paragraph-header">What I'm Up To:</h2>
-              <ul>
-                <li class="list-text">
-                  I volunteer at the SNU international students association
-                  helping international students with korean speaking and
-                  overall getting to know Korea a little bit better.
-                </li>
-                <li class="list-text">
-                  I'm also looking for summer internships related to software
-                  design for music information retriveal, developing ai
-                  algorithms to automatically generate sheet music from audio.
-                </li>
-                <li class="list-text">
-                  Course work is a bit intense! You'll find me in the quiet
-                  rooms studio doing work. I also spend a few hours each week as
-                  a lab assistant researching.
-                </li>
-              </ul>
-              <h2 class="modal-paragraph-header-2">Portfolio credits and Inspiration:</h2>
-              <ul>
-                <li class="list-text-2">
-                  Music is called Cosmic Star Candy by Daystar Project!
-                </li>
-                <li class="list-text-2">
-                  This portfolio was inspired by Bruno Simon's and Rachel Wei's Room Portfolios as well as Denis Wipart's and Nicky Blender's art!
-                </li>
-                <li class="list-text-2">
-                  Also the piano in this portfolio works!! Give it a try and play a song!
-                </li>
-              </ul>
             </div>
           </div>
         </div>
       </div>
-      <button class="modal-exit-button">
-        <svg
-          width="98"
-          height="96"
-          viewBox="0 0 98 96"
-          class="exit-button-svg"
-          fill="currentColor"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <rect
-            width="115.92"
-            height="17.889"
-            rx="8.94448"
-            transform="matrix(-0.696845 0.717222 0.717222 0.696845 83.1709 0)"
-            fill="currentColor"
-          />
-          <rect
-            width="115.92"
-            height="17.889"
-            rx="8.94448"
-            transform="matrix(0.73406 0.679084 0.679084 -0.73406 0 13.1318)"
-            fill="currentColor"
-          />
-        </svg>
-      </button>
-    </div>
-    <div class="contact modal">
-      <div class="modal-wrapper">
-        <h1 class="modal-title">~ Say hello! ~</h1>
+      <!-- CONTACT MODAL -->
+      <div class="contact modal">
+        <button class="modal-exit-button" type="button" aria-label="Close modal">
+          <img src="/icons/xmark-svgrepo-com.svg" alt="close" />
+        </button>
 
-        <div class="modal-content">
-          <div class="modal-content-wrapper">
-            <div class="paragraph-section">
-              <h2 class="modal-paragraph-header xsm-margin-top">
-                If you like engineering, music, games, and food, let's connect!
-              </h2>
-              <div class="contact-button-wrapper">
-                <a
-                  class="contact-link"
-                  href="mailto:someone@example.com"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                <svg class="contact-svg mail" width="800" height="800" viewBox="0 0 800 800" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M656.85 209.817C608.726 166.348 527.66 150 400 150C272.34 150 191.272 166.348 143.15 209.817M656.85 209.817C700.01 248.804 716.666 309.608 716.666 400C716.666 591.177 642.156 650 400 650C157.843 650 83.333 591.177 83.333 400C83.333 309.608 99.9903 248.804 143.15 209.817M656.85 209.817L447.14 419.527C421.103 445.56 378.893 445.56 352.86 419.527L143.15 209.817" stroke="currentColor" stroke-width="66.7" stroke-linecap="round" stroke-linejoin="round"/>
-                  </svg>
-                </a>
-                <a
-                  class="contact-link"
-                  href="https://github.com/andrewwoan/sooahkimsfolio"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <svg
-                    width="800"
-                    height="800"
-                    viewBox="0 0 800 800"
-                    fill="none"
-                    class="contact-svg github"
-                    xmlns="http://www.w3.org/2000/svg"
+        <div class="modal-wrapper">
+          <h1 class="modal-title" data-i18n="contact">~ Let's Get In Touch! ~</h1>
+
+          <div class="modal-content">
+            <div class="modal-content-wrapper">
+              <div class="paragraph-section">
+                <h2 class="modal-paragraph-header xsm-margin-top" data-i18n="contactHeader">If you have any questions, let's connect!</h2>
+                <div class="contact-button-wrapper">
+                  <a
+                    class="contact-link"
+                    href="mailto:elishatorres27@gmail.com"
+                    target="_blank"
+                    rel="noopener noreferrer"
                   >
-                    <path
-                      d="M700 400C700 565.687 565.687 700 400 700C234.315 700 100 565.687 100 400C100 234.315 234.315 100 400 100C565.687 100 700 234.315 700 400Z"
-                      stroke="currentColor"
-                      stroke-width="66.6667"
-                    />
-                    <path
-                      d="M457.234 296.059C419.604 285.652 380.397 285.652 342.767 296.059C342.124 296.237 341.481 296.418 340.841 296.603C336.891 297.74 332.642 296.967 329.357 294.497C289.771 264.731 269.093 266.061 263.976 267.054C263.154 267.214 262.529 267.827 262.245 268.615C262.173 268.814 262.102 269.013 262.031 269.212C253.88 292.169 252.635 317.605 258.426 341.417C258.764 342.804 259.124 344.184 259.509 345.557C259.534 345.647 259.56 345.737 259.585 345.827C259.919 347.007 259.674 348.277 258.927 349.254C258.359 349.994 257.799 350.744 257.248 351.5C241.494 373.13 232.97 400.71 233.346 429.157C233.346 544.664 293.466 571.194 351.167 579.037L352.361 579.194C384.491 583.997 415.291 583.7 447.317 578.264L448.127 578.167C506.107 571.13 566.654 545.29 566.654 429.157C567.031 400.71 558.507 373.13 542.754 351.5C542.247 350.807 541.734 350.117 541.214 349.434L541.174 349.384C540.367 348.327 540.101 346.95 540.461 345.67C540.857 344.257 541.227 342.84 541.571 341.417C547.367 317.537 546.051 292.026 537.764 269.059C537.711 268.918 537.661 268.777 537.611 268.637C537.317 267.835 536.681 267.21 535.841 267.048C530.701 266.055 510.137 264.794 470.644 294.497C467.361 296.966 463.111 297.733 459.161 296.602C458.521 296.418 457.877 296.237 457.234 296.059Z"
-                      stroke="currentColor"
-                      stroke-width="66.6667"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                    />
-                  </svg>
-                </a>
-                <a
-                  class="contact-link"
-                  href="https://www.linkedin.com/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <svg
-                    width="800"
-                    height="800"
-                    viewBox="0 0 800 800"
-                    class="contact-svg linkedin"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
+                  <svg class="contact-svg mail" width="800" height="800" viewBox="0 0 800 800" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M656.85 209.817C608.726 166.348 527.66 150 400 150C272.34 150 191.272 166.348 143.15 209.817M656.85 209.817C700.01 248.804 716.666 309.608 716.666 400C716.666 591.177 642.156 650 400 650C157.843 650 83.333 591.177 83.333 400C83.333 309.608 99.9903 248.804 143.15 209.817M656.85 209.817L447.14 419.527C421.103 445.56 378.893 445.56 352.86 419.527L143.15 209.817" stroke="currentColor" stroke-width="66.7" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                  </a>
+                  <a
+                    class="contact-link"
+                    href="https://github.com/andrewwoan/sooahkimsfolio"
+                    target="_blank"
+                    rel="noopener noreferrer"
                   >
-                    <g clip-path="url(#clip0_371_15)">
+                    <svg
+                      width="800"
+                      height="800"
+                      viewBox="0 0 800 800"
+                      fill="none"
+                      class="contact-svg github"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
                       <path
-                        d="M600 100C655.23 100 700 144.772 700 200V600C700 655.23 655.23 700 600 700H200C144.772 700 100 655.23 100 600V200C100 144.772 144.772 100 200 100H600ZM600 166.667H200C181.591 166.667 166.667 181.591 166.667 200V600C166.667 618.41 181.591 633.333 200 633.333H600C618.41 633.333 633.333 618.41 633.333 600V200C633.333 181.591 618.41 166.667 600 166.667ZM266.667 333.333C283.761 333.333 297.85 346.201 299.776 362.779L300 366.667V533.333C300 551.743 285.076 566.667 266.667 566.667C249.572 566.667 235.483 553.799 233.558 537.221L233.333 533.333V366.667C233.333 348.257 248.257 333.333 266.667 333.333ZM366.667 300C383.043 300 396.66 311.809 399.47 327.376C406.21 323.478 413.167 319.964 420.223 316.946C442.463 307.432 475.773 302.198 505.83 311.65C521.587 316.603 537.44 325.969 549.193 341.853C559.682 356.034 565.33 373.28 566.456 392.642L566.667 400V533.333C566.667 551.74 551.743 566.667 533.333 566.667C516.238 566.667 502.15 553.796 500.224 537.22L500 533.333V400C500 389.023 497.337 383.857 495.6 381.503C493.81 379.087 490.913 376.843 485.837 375.247C474.227 371.597 457.537 373.493 446.443 378.24C429.742 385.383 414.491 396.571 404.131 406.945L400 411.327V533.333C400 551.743 385.077 566.667 366.667 566.667C349.572 566.667 335.483 553.799 333.558 537.221L333.333 533.333V333.333C333.333 314.924 348.257 300 366.667 300ZM266.667 233.333C285.076 233.333 300 248.257 300 266.667C300 285.076 285.076 300 266.667 300C248.257 300 233.333 285.076 233.333 266.667C233.333 248.257 248.257 233.333 266.667 233.333Z"
-                        fill="currentColor"
+                        d="M700 400C700 565.687 565.687 700 400 700C234.315 700 100 565.687 100 400C100 234.315 234.315 100 400 100C565.687 100 700 234.315 700 400Z"
+                        stroke="currentColor"
+                        stroke-width="66.6667"
                       />
-                    </g>
-                    <defs>
-                      <clipPath id="clip0_371_15">
-                        <rect width="800" height="800" fill="white" />
-                      </clipPath>
-                    </defs>
+                      <path
+                        d="M457.234 296.059C419.604 285.652 380.397 285.652 342.767 296.059C342.124 296.237 341.481 296.418 340.841 296.603C336.891 297.74 332.642 296.967 329.357 294.497C289.771 264.731 269.093 266.061 263.976 267.054C263.154 267.214 262.529 267.827 262.245 268.615C262.173 268.814 262.102 269.013 262.031 269.212C253.88 292.169 252.635 317.605 258.426 341.417C258.764 342.804 259.124 344.184 259.509 345.557C259.534 345.647 259.56 345.737 259.585 345.827C259.919 347.007 259.674 348.277 258.927 349.254C258.359 349.994 257.799 350.744 257.248 351.5C241.494 373.13 232.97 400.71 233.346 429.157C233.346 544.664 293.466 571.194 351.167 579.037L352.361 579.194C384.491 583.997 415.291 583.7 447.317 578.264L448.127 578.167C506.107 571.13 566.654 545.29 566.654 429.157C567.031 400.71 558.507 373.13 542.754 351.5C542.247 350.807 541.734 350.117 541.214 349.434L541.174 349.384C540.367 348.327 540.101 346.95 540.461 345.67C540.857 344.257 541.227 342.84 541.571 341.417C547.367 317.537 546.051 292.026 537.764 269.059C537.711 268.918 537.661 268.777 537.611 268.637C537.317 267.835 536.681 267.21 535.841 267.048C530.701 266.055 510.137 264.794 470.644 294.497C467.361 296.966 463.111 297.733 459.161 296.602C458.521 296.418 457.877 296.237 457.234 296.059Z"
+                        stroke="currentColor"
+                        stroke-width="66.6667"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      />
+                    </svg>
+                  </a>
+                  <a
+                    class="contact-link"
+                    href="https://www.linkedin.com/in/elisha-torres-4b35813b5?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <svg
+                      width="800"
+                      height="800"
+                      viewBox="0 0 800 800"
+                      class="contact-svg linkedin"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <g clip-path="url(#clip0_371_15)">
+                        <path
+                          d="M600 100C655.23 100 700 144.772 700 200V600C700 655.23 655.23 700 600 700H200C144.772 700 100 655.23 100 600V200C100 144.772 144.772 100 200 100H600ZM600 166.667H200C181.591 166.667 166.667 181.591 166.667 200V600C166.667 618.41 181.591 633.333 200 633.333H600C618.41 633.333 633.333 618.41 633.333 600V200C633.333 181.591 618.41 166.667 600 166.667ZM266.667 333.333C283.761 333.333 297.85 346.201 299.776 362.779L300 366.667V533.333C300 551.743 285.076 566.667 266.667 566.667C249.572 566.667 235.483 553.799 233.558 537.221L233.333 533.333V366.667C233.333 348.257 248.257 333.333 266.667 333.333ZM366.667 300C383.043 300 396.66 311.809 399.47 327.376C406.21 323.478 413.167 319.964 420.223 316.946C442.463 307.432 475.773 302.198 505.83 311.65C521.587 316.603 537.44 325.969 549.193 341.853C559.682 356.034 565.33 373.28 566.456 392.642L566.667 400V533.333C566.667 551.74 551.743 566.667 533.333 566.667C516.238 566.667 502.15 553.796 500.224 537.22L500 533.333V400C500 389.023 497.337 383.857 495.6 381.503C493.81 379.087 490.913 376.843 485.837 375.247C474.227 371.597 457.537 373.493 446.443 378.24C429.742 385.383 414.491 396.571 404.131 406.945L400 411.327V533.333C400 551.743 385.077 566.667 366.667 566.667C349.572 566.667 335.483 553.799 333.558 537.221L333.333 533.333V333.333C333.333 314.924 348.257 300 366.667 300ZM266.667 233.333C285.076 233.333 300 248.257 300 266.667C300 285.076 285.076 300 266.667 300C248.257 300 233.333 285.076 233.333 266.667C233.333 248.257 248.257 233.333 266.667 233.333Z"
+                          fill="currentColor"
+                        />
+                      </g>
+                      <defs>
+                        <clipPath id="clip0_371_15">
+                          <rect width="800" height="800" fill="white" />
+                        </clipPath>
+                      </defs>
+                    </svg>
+                  </a>
+                  <a
+                    class="contact-link"
+                    href="https://www.instagram.com/its.ellie_03?igsh=MTVmd3k3OWRzd3ZhbQ=="
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                  <svg class="contact-svg instagram" width="800" height="800" viewBox="0 0 800 800" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M400 675C341.033 675 298.6 674.971 265.517 671.763C232.812 668.592 211.892 662.5 195.196 652.008C176.114 640.02 159.978 623.885 147.987 604.804C137.5 588.108 131.404 567.187 128.238 534.483C125.029 501.4 125 458.967 125 400C125 341.033 125.029 298.6 128.238 265.517C131.404 232.812 137.5 211.892 147.987 195.196C159.977 176.113 176.113 159.977 195.196 147.987C211.892 137.5 232.812 131.404 265.517 128.238C298.596 125.029 341.029 125 400 125C458.967 125 501.4 125.029 534.483 128.238C567.187 131.404 588.108 137.5 604.804 147.987C623.885 159.978 640.02 176.114 652.008 195.196C662.5 211.892 668.592 232.812 671.763 265.517C674.971 298.6 675 341.033 675 400C675 458.967 674.971 501.4 671.763 534.483C668.592 567.187 662.5 588.108 652.008 604.804C640.019 623.885 623.885 640.019 604.804 652.008C588.108 662.5 567.187 668.592 534.483 671.763C501.4 674.971 458.967 675 400 675Z" stroke="currentColor" stroke-width="66.7"/>
+                    <path d="M400 525C469.036 525 525 469.036 525 400C525 330.964 469.036 275 400 275C330.964 275 275 330.964 275 400C275 469.036 330.964 525 400 525Z" stroke="currentColor" stroke-width="66.7"/>
+                    <path d="M562.5 275C583.211 275 600 258.211 600 237.5C600 216.789 583.211 200 562.5 200C541.789 200 525 216.789 525 237.5C525 258.211 541.789 275 562.5 275Z" fill="currentColor"/>
                   </svg>
-                </a>
-                <a
-                  class="contact-link"
-                  href="https://www.instagram.com/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                <svg class="contact-svg instagram" width="800" height="800" viewBox="0 0 800 800" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M400 675C341.033 675 298.6 674.971 265.517 671.763C232.812 668.592 211.892 662.5 195.196 652.008C176.114 640.02 159.978 623.885 147.987 604.804C137.5 588.108 131.404 567.187 128.238 534.483C125.029 501.4 125 458.967 125 400C125 341.033 125.029 298.6 128.238 265.517C131.404 232.812 137.5 211.892 147.987 195.196C159.977 176.113 176.113 159.977 195.196 147.987C211.892 137.5 232.812 131.404 265.517 128.238C298.596 125.029 341.029 125 400 125C458.967 125 501.4 125.029 534.483 128.238C567.187 131.404 588.108 137.5 604.804 147.987C623.885 159.978 640.02 176.114 652.008 195.196C662.5 211.892 668.592 232.812 671.763 265.517C674.971 298.6 675 341.033 675 400C675 458.967 674.971 501.4 671.763 534.483C668.592 567.187 662.5 588.108 652.008 604.804C640.019 623.885 623.885 640.019 604.804 652.008C588.108 662.5 567.187 668.592 534.483 671.763C501.4 674.971 458.967 675 400 675Z" stroke="currentColor" stroke-width="66.7"/>
-                  <path d="M400 525C469.036 525 525 469.036 525 400C525 330.964 469.036 275 400 275C330.964 275 275 330.964 275 400C275 469.036 330.964 525 400 525Z" stroke="currentColor" stroke-width="66.7"/>
-                  <path d="M562.5 275C583.211 275 600 258.211 600 237.5C600 216.789 583.211 200 562.5 200C541.789 200 525 216.789 525 237.5C525 258.211 541.789 275 562.5 275Z" fill="currentColor"/>
-                </svg>
-                </a>
+                  </a>
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-      <button class="modal-exit-button">
-        <svg
-          width="98"
-          height="96"
-          viewBox="0 0 98 96"
-          class="exit-button-svg"
-          fill="currentColor"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <rect
-            width="115.92"
-            height="17.889"
-            rx="8.94448"
-            transform="matrix(-0.696845 0.717222 0.717222 0.696845 83.1709 0)"
-            fill="currentColor"
-          />
-          <rect
-            width="115.92"
-            height="17.889"
-            rx="8.94448"
-            transform="matrix(0.73406 0.679084 0.679084 -0.73406 0 13.1318)"
-            fill="currentColor"
-          />
-        </svg>
-      </button>
-    </div>
-
-    <div id="experience">
-      <canvas id="experience-canvas" class="experience-canvas"></canvas>
     </div>
     <script type="module" src="/src/main.js"></script>
   </body>
